@@ -1,4 +1,4 @@
-# Lab 1: STM32CubeIDE and Multi-Function Shield Introduction
+# Lab-01: STM32CubeIDE and Multi-Function Shield Introduction
 
 ## Introduction and Objective of the Lab
 
