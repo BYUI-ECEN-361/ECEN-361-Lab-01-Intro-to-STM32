@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "MultiFunctionShield.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 /* USER CODE END Includes */
 
@@ -64,19 +65,18 @@ static void MX_ADC2_Init(void);
 static void MX_TIM15_Init(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_TIM16_Init(void);
-static void MX_TIM17_Init(void);
-static void MX_ADC2_Init(void);
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 void MultiFunctionShield_WriteNumberToSegment(uint8_t digit);
 void MultiFunctionShield_Display (int16_t value);
 void MultiFunctionShield__ISRFunc(void);
 void MultiFunctionShield_Clear(void);
+void OneSecond_Show_Potentiometer__ISRFunc(void);
 
-
+	uint16_t ADC_Result = 0;
+	uint8_t TimeToPrint = 0;
+	uint16_t Increment_Delay = 0;
+	enum Count_Direction {UP,DOWN};
+	enum Count_Direction Seven_Seg_Count_Dir = UP;
 
 /* USER CODE END PFP */
 
@@ -92,8 +92,7 @@ void MultiFunctionShield_Clear(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	int16_t i = 5555;
-	uint16_t ADC_Result = 0;
+	int16_t Seven_Seg_Count = 9900;
 
   /* USER CODE END 1 */
 
@@ -125,6 +124,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Start timer
+  // HAL_TIM_Base_Start_IT(&htim7);
+  HAL_TIM_Base_Start_IT(&htim15);
   HAL_TIM_Base_Start_IT(&htim16);
   HAL_TIM_Base_Start_IT(&htim17);  // LED SevenSeg cycle thru them
   MultiFunctionShield_Clear();
@@ -141,8 +142,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  // printf("Hello World\n\r");
   printf("\033\143");  // clear the terminal before printing
+  printf("Hello Lab-1 -- Multifunction Board \n\r\n\r");
 
   while (1)
   {
@@ -150,22 +151,36 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	// HAL_GPIO_TogglePin(LED_D1_GPIO_Port, LED_D1_Pin);
-	MultiFunctionShield_Display( i++);
+	MultiFunctionShield_Display( Seven_Seg_Count);
+	if (Seven_Seg_Count_Dir == UP)
+		{ Seven_Seg_Count = (Seven_Seg_Count==9999)?0:Seven_Seg_Count+1; }
+	else
+		{ Seven_Seg_Count = (Seven_Seg_Count==0)?9999:Seven_Seg_Count-1; }
+
+
+
 	// Start ADC Conversion of the 10K potentiometer
 	HAL_ADC_Start(&hadc2);
 	// The conversion should be less than a millisec
 	// so it'll be done while we're waiting for the next number to show
-	HAL_Delay(200);  // this is how long before the counter on the 7-Seg display
+	HAL_Delay(Increment_Delay);  // this is how long before the counter on the 7-Seg display
 
 
    // Poll ADC2 Perihperal & TimeOut = 1mSec
 	HAL_ADC_PollForConversion(&hadc2, 1);
    // Read The ADC Conversion Result & Map It To PWM DutyCycle
 	ADC_Result = HAL_ADC_GetValue(&hadc2);
+	// Want the delay to be between 1/100-sec and 1-sec
+	// Math:    1 / 100 =  / 4095
+	Increment_Delay = (uint16_t)(ADC_Result + 1) * 1000 / 4095;
 	// Now show the value in the serial port
 	// only 12 bits, and right-aligned.
-	printf("Pot value:  %u\r", (unsigned int) (ADC_Result & 0xfff));
-	HAL_Delay(1);
+	// printf("Pot value:  %u\r", (unsigned int) (ADC_Result & 0xfff));
+	// HAL_Delay(1);
+	if (TimeToPrint) {
+		OneSecond_Show_Potentiometer__ISRFunc();
+		TimeToPrint=0;
+	}
 
 
   }
@@ -176,6 +191,17 @@ int main(void)
   * @brief System Clock Configuration
   * @retval None
   */
+void OneSecond_Show_Potentiometer__ISRFunc(void)
+	{
+	// printf("Got to the show Pot ISR");
+	// HAL_Delay(1);
+	printf("Current Tick:  %lu    :   Raw Pot Value: %u   Delay between number update: %d\n\r",uwTick,ADC_Result,Increment_Delay);
+	// HAL_Delay(1);
+	}
+
+
+
+
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -521,10 +547,40 @@ PUTCHAR_PROTOTYPE
 
 
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+	{
+	// All three buttons generate GPIO  interrupts
+	switch(GPIO_Pin)
+	{
+	case Button_1_Pin:
+		// Toggle the count direction
+		Seven_Seg_Count_Dir = (Seven_Seg_Count_Dir == UP)?DOWN:UP;
+		break;
+	case Button_2_Pin:
+		HAL_GPIO_TogglePin(LED_D1_GPIO_Port, LED_D1_Pin);
+		break;
+	case Button_3_Pin:
+		break;
+	default:
+      __NOP();
+	}
+}
+
+
+
+
 // Callback: timer has rolled over
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  // Check which version of the timer triggered this callback and toggle LED
+	/*
+  if (htim == &htim7 )
+  {
+	HAL_GPIO_TogglePin(LED_D2_GPIO_Port, LED_D2_Pin);
+	  printf("Got timer 7\n\r");
+  }
+  */
+
+// Check which version of the timer triggered this callback and toggle LED
   if (htim == &htim16 )
   {
     HAL_GPIO_TogglePin(LED_D3_GPIO_Port, LED_D3_Pin);
@@ -535,6 +591,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	  MultiFunctionShield__ISRFunc();
   }
 
+  if (htim == &htim15 )
+  {
+    // HAL_GPIO_TogglePin(LED_D1_GPIO_Port, LED_D1_Pin);
+	TimeToPrint = 1;
+  }
 
 
 }
