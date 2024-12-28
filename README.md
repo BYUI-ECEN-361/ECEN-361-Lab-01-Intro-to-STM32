@@ -1,4 +1,4 @@
-# ECEN-361-STM32-Lab-01-multiboard
+# ECEN-360-STM32-Lab-01-multiboard
 ## BYU-I  Department of Electrical and Computer Engineering
 ## Overview / Purpose
 

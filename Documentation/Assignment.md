@@ -79,17 +79,30 @@ Steps:
 ### Part 2: Questions (5pts)
 
 1. What does switch 1 (S1) do?
+  
+   <mark>[*answer here*]</mark>
 
 2. What does switch 2 (S2) do?
+  
+   <mark>[*answer here*]</mark>
 
 3. What does switch 3 (S3) do?
+  
+   <mark>[*answer here*]</mark>
 
 4. What variable would you change to make the first number shown on the 7-segment digits be ‘1234’?
-
+  
+   <mark>[*answer here*]</mark>
 5. What pin on the chip is tied to the potentiometer?
+  
+   <mark>[*answer here*]</mark>
 
-## Extra-Credit Opportunities (5pts for any of the following)
+## Extra-Credit Opportunities (2pts for any of the following)
 
 * In addition to the changing digits, there is a serial output terminal stream that is reporting status abut every second or so.  Connect a terminal emulator to this stream (Windows: 'PuTTY' or 'Tera Term', Mac: 'screen') and paste a line from its output.
+  
+   <mark>[*answer here*]</mark>
 
 * What does the potentiometer do in the program?
+  
+   <mark>[*answer here*]</mark>
