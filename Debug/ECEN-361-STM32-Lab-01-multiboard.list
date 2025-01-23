@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00008068  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00012bd2  00000000  00000000  00008098  2**0
+ 12 .debug_info   00012bd1  00000000  00000000  00008098  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000025fe  00000000  00000000  0001ac6a  2**0
+ 13 .debug_abbrev 000025e5  00000000  00000000  0001ac69  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000011b0  00000000  00000000  0001d268  2**3
+ 14 .debug_aranges 000011b0  00000000  00000000  0001d250  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00000dd1  00000000  00000000  0001e418  2**0
+ 15 .debug_rnglists 00000dd1  00000000  00000000  0001e400  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0002968f  00000000  00000000  0001f1e9  2**0
+ 16 .debug_macro  0002968f  00000000  00000000  0001f1d1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00014233  00000000  00000000  00048878  2**0
+ 17 .debug_line   00014233  00000000  00000000  00048860  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    001071d6  00000000  00000000  0005caab  2**0
+ 18 .debug_str    001071d6  00000000  00000000  0005ca93  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00163c81  2**0
+ 19 .comment      00000043  00000000  00000000  00163c69  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00005278  00000000  00000000  00163cc4  2**2
+ 20 .debug_frame  00005278  00000000  00000000  00163cac  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000080  00000000  00000000  00168f3c  2**0
+ 21 .debug_line_str 00000080  00000000  00000000  00168f24  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -904,247 +904,247 @@ void MultiFunctionShield__ISRFunc(void)
  800090a:	bf00      	nop
  800090c:	20000084 	.word	0x20000084
 
-08000910 <main>:
+08000910 <OneSecond_Show_Potentiometer__ISRFunc>:
+/* Private user code ---------------------------------------------------------*/
+
+/* USER CODE BEGIN 0 */
+
+void OneSecond_Show_Potentiometer__ISRFunc(void)
+	{
+ 8000910:	b580      	push	{r7, lr}
+ 8000912:	af00      	add	r7, sp, #0
+	// printf("Got to the show Pot ISR");
+	// HAL_Delay(1);
+	printf("Current Tick:  %lu    :   Raw Pot Value: %u   Delay between number update: %d\n\r",uwTick,ADC_Result,Increment_Delay);
+ 8000914:	4b05      	ldr	r3, [pc, #20]	@ (800092c <OneSecond_Show_Potentiometer__ISRFunc+0x1c>)
+ 8000916:	6819      	ldr	r1, [r3, #0]
+ 8000918:	4b05      	ldr	r3, [pc, #20]	@ (8000930 <OneSecond_Show_Potentiometer__ISRFunc+0x20>)
+ 800091a:	881b      	ldrh	r3, [r3, #0]
+ 800091c:	461a      	mov	r2, r3
+ 800091e:	4b05      	ldr	r3, [pc, #20]	@ (8000934 <OneSecond_Show_Potentiometer__ISRFunc+0x24>)
+ 8000920:	881b      	ldrh	r3, [r3, #0]
+ 8000922:	4805      	ldr	r0, [pc, #20]	@ (8000938 <OneSecond_Show_Potentiometer__ISRFunc+0x28>)
+ 8000924:	f005 f8f4 	bl	8005b10 <iprintf>
+	// HAL_Delay(1);
+	}
+ 8000928:	bf00      	nop
+ 800092a:	bd80      	pop	{r7, pc}
+ 800092c:	20000268 	.word	0x20000268
+ 8000930:	2000025c 	.word	0x2000025c
+ 8000934:	20000260 	.word	0x20000260
+ 8000938:	08006804 	.word	0x08006804
+
+0800093c <main>:
 /**
   * @brief  The application entry point.
   * @retval int
   */
 int main(void)
 {
- 8000910:	b580      	push	{r7, lr}
- 8000912:	b082      	sub	sp, #8
- 8000914:	af00      	add	r7, sp, #0
+ 800093c:	b580      	push	{r7, lr}
+ 800093e:	b082      	sub	sp, #8
+ 8000940:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN 1 */
 	int16_t Seven_Seg_Count = 9900;
- 8000916:	f242 63ac 	movw	r3, #9900	@ 0x26ac
- 800091a:	80fb      	strh	r3, [r7, #6]
+ 8000942:	f242 63ac 	movw	r3, #9900	@ 0x26ac
+ 8000946:	80fb      	strh	r3, [r7, #6]
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
- 800091c:	f000 fde8 	bl	80014f0 <HAL_Init>
+ 8000948:	f000 fdd2 	bl	80014f0 <HAL_Init>
 
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
- 8000920:	f000 f8b6 	bl	8000a90 <SystemClock_Config>
+ 800094c:	f000 f8a0 	bl	8000a90 <SystemClock_Config>
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
- 8000924:	f000 fa3a 	bl	8000d9c <MX_GPIO_Init>
+ 8000950:	f000 fa24 	bl	8000d9c <MX_GPIO_Init>
   MX_USART2_UART_Init();
- 8000928:	f000 fa08 	bl	8000d3c <MX_USART2_UART_Init>
+ 8000954:	f000 f9f2 	bl	8000d3c <MX_USART2_UART_Init>
   MX_TIM16_Init();
- 800092c:	f000 f9b8 	bl	8000ca0 <MX_TIM16_Init>
+ 8000958:	f000 f9a2 	bl	8000ca0 <MX_TIM16_Init>
   MX_TIM17_Init();
- 8000930:	f000 f9de 	bl	8000cf0 <MX_TIM17_Init>
+ 800095c:	f000 f9c8 	bl	8000cf0 <MX_TIM17_Init>
   MX_ADC2_Init();
- 8000934:	f000 f8fe 	bl	8000b34 <MX_ADC2_Init>
+ 8000960:	f000 f8e8 	bl	8000b34 <MX_ADC2_Init>
   MX_TIM15_Init();
- 8000938:	f000 f960 	bl	8000bfc <MX_TIM15_Init>
+ 8000964:	f000 f94a 	bl	8000bfc <MX_TIM15_Init>
   /* USER CODE BEGIN 2 */
 
   // Start timer
   // HAL_TIM_Base_Start_IT(&htim7);
   HAL_TIM_Base_Start_IT(&htim15);
- 800093c:	483d      	ldr	r0, [pc, #244]	@ (8000a34 <main+0x124>)
- 800093e:	f003 fe41 	bl	80045c4 <HAL_TIM_Base_Start_IT>
+ 8000968:	483d      	ldr	r0, [pc, #244]	@ (8000a60 <main+0x124>)
+ 800096a:	f003 fe2b 	bl	80045c4 <HAL_TIM_Base_Start_IT>
   HAL_TIM_Base_Start_IT(&htim16);
- 8000942:	483d      	ldr	r0, [pc, #244]	@ (8000a38 <main+0x128>)
- 8000944:	f003 fe3e 	bl	80045c4 <HAL_TIM_Base_Start_IT>
+ 800096e:	483d      	ldr	r0, [pc, #244]	@ (8000a64 <main+0x128>)
+ 8000970:	f003 fe28 	bl	80045c4 <HAL_TIM_Base_Start_IT>
   HAL_TIM_Base_Start_IT(&htim17);  // LED SevenSeg cycle thru them
- 8000948:	483c      	ldr	r0, [pc, #240]	@ (8000a3c <main+0x12c>)
- 800094a:	f003 fe3b 	bl	80045c4 <HAL_TIM_Base_Start_IT>
+ 8000974:	483c      	ldr	r0, [pc, #240]	@ (8000a68 <main+0x12c>)
+ 8000976:	f003 fe25 	bl	80045c4 <HAL_TIM_Base_Start_IT>
   MultiFunctionShield_Clear();
- 800094e:	f7ff ff5d 	bl	800080c <MultiFunctionShield_Clear>
+ 800097a:	f7ff ff47 	bl	800080c <MultiFunctionShield_Clear>
 
 
   // Clear the lights
   HAL_GPIO_WritePin(LED_D1_GPIO_Port, LED_D1_Pin,GPIO_PIN_SET);
- 8000952:	2201      	movs	r2, #1
- 8000954:	2120      	movs	r1, #32
- 8000956:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 800095a:	f002 fa71 	bl	8002e40 <HAL_GPIO_WritePin>
+ 800097e:	2201      	movs	r2, #1
+ 8000980:	2120      	movs	r1, #32
+ 8000982:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 8000986:	f002 fa5b 	bl	8002e40 <HAL_GPIO_WritePin>
   HAL_GPIO_WritePin(LED_D2_GPIO_Port, LED_D2_Pin,GPIO_PIN_SET);
- 800095e:	2201      	movs	r2, #1
- 8000960:	2140      	movs	r1, #64	@ 0x40
- 8000962:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8000966:	f002 fa6b 	bl	8002e40 <HAL_GPIO_WritePin>
+ 800098a:	2201      	movs	r2, #1
+ 800098c:	2140      	movs	r1, #64	@ 0x40
+ 800098e:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 8000992:	f002 fa55 	bl	8002e40 <HAL_GPIO_WritePin>
   HAL_GPIO_WritePin(LED_D3_GPIO_Port, LED_D3_Pin,GPIO_PIN_SET);
- 800096a:	2201      	movs	r2, #1
- 800096c:	2180      	movs	r1, #128	@ 0x80
- 800096e:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8000972:	f002 fa65 	bl	8002e40 <HAL_GPIO_WritePin>
+ 8000996:	2201      	movs	r2, #1
+ 8000998:	2180      	movs	r1, #128	@ 0x80
+ 800099a:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 800099e:	f002 fa4f 	bl	8002e40 <HAL_GPIO_WritePin>
   HAL_GPIO_WritePin(LED_D4_GPIO_Port, LED_D4_Pin,GPIO_PIN_SET);
- 8000976:	2201      	movs	r2, #1
- 8000978:	2140      	movs	r1, #64	@ 0x40
- 800097a:	4831      	ldr	r0, [pc, #196]	@ (8000a40 <main+0x130>)
- 800097c:	f002 fa60 	bl	8002e40 <HAL_GPIO_WritePin>
+ 80009a2:	2201      	movs	r2, #1
+ 80009a4:	2140      	movs	r1, #64	@ 0x40
+ 80009a6:	4831      	ldr	r0, [pc, #196]	@ (8000a6c <main+0x130>)
+ 80009a8:	f002 fa4a 	bl	8002e40 <HAL_GPIO_WritePin>
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
   printf("\033\143");  // clear the terminal before printing
- 8000980:	4830      	ldr	r0, [pc, #192]	@ (8000a44 <main+0x134>)
- 8000982:	f005 f8c5 	bl	8005b10 <iprintf>
+ 80009ac:	4830      	ldr	r0, [pc, #192]	@ (8000a70 <main+0x134>)
+ 80009ae:	f005 f8af 	bl	8005b10 <iprintf>
   printf("Hello Lab-1 -- Multifunction Board \n\r\n\r");
- 8000986:	4830      	ldr	r0, [pc, #192]	@ (8000a48 <main+0x138>)
- 8000988:	f005 f8c2 	bl	8005b10 <iprintf>
+ 80009b2:	4830      	ldr	r0, [pc, #192]	@ (8000a74 <main+0x138>)
+ 80009b4:	f005 f8ac 	bl	8005b10 <iprintf>
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 	// HAL_GPIO_TogglePin(LED_D1_GPIO_Port, LED_D1_Pin);
 	MultiFunctionShield_Display( Seven_Seg_Count);
- 800098c:	f9b7 3006 	ldrsh.w	r3, [r7, #6]
- 8000990:	4618      	mov	r0, r3
- 8000992:	f7ff fe33 	bl	80005fc <MultiFunctionShield_Display>
+ 80009b8:	f9b7 3006 	ldrsh.w	r3, [r7, #6]
+ 80009bc:	4618      	mov	r0, r3
+ 80009be:	f7ff fe1d 	bl	80005fc <MultiFunctionShield_Display>
 	if (Seven_Seg_Count_Dir == UP)
- 8000996:	4b2d      	ldr	r3, [pc, #180]	@ (8000a4c <main+0x13c>)
- 8000998:	781b      	ldrb	r3, [r3, #0]
- 800099a:	2b00      	cmp	r3, #0
- 800099c:	d10d      	bne.n	80009ba <main+0xaa>
+ 80009c2:	4b2d      	ldr	r3, [pc, #180]	@ (8000a78 <main+0x13c>)
+ 80009c4:	781b      	ldrb	r3, [r3, #0]
+ 80009c6:	2b00      	cmp	r3, #0
+ 80009c8:	d10d      	bne.n	80009e6 <main+0xaa>
 		{ Seven_Seg_Count = (Seven_Seg_Count==9999)?0:Seven_Seg_Count+1; }
- 800099e:	f9b7 3006 	ldrsh.w	r3, [r7, #6]
- 80009a2:	f242 720f 	movw	r2, #9999	@ 0x270f
- 80009a6:	4293      	cmp	r3, r2
- 80009a8:	d004      	beq.n	80009b4 <main+0xa4>
- 80009aa:	88fb      	ldrh	r3, [r7, #6]
- 80009ac:	3301      	adds	r3, #1
- 80009ae:	b29b      	uxth	r3, r3
- 80009b0:	b21b      	sxth	r3, r3
- 80009b2:	e000      	b.n	80009b6 <main+0xa6>
- 80009b4:	2300      	movs	r3, #0
- 80009b6:	80fb      	strh	r3, [r7, #6]
- 80009b8:	e00b      	b.n	80009d2 <main+0xc2>
+ 80009ca:	f9b7 3006 	ldrsh.w	r3, [r7, #6]
+ 80009ce:	f242 720f 	movw	r2, #9999	@ 0x270f
+ 80009d2:	4293      	cmp	r3, r2
+ 80009d4:	d004      	beq.n	80009e0 <main+0xa4>
+ 80009d6:	88fb      	ldrh	r3, [r7, #6]
+ 80009d8:	3301      	adds	r3, #1
+ 80009da:	b29b      	uxth	r3, r3
+ 80009dc:	b21b      	sxth	r3, r3
+ 80009de:	e000      	b.n	80009e2 <main+0xa6>
+ 80009e0:	2300      	movs	r3, #0
+ 80009e2:	80fb      	strh	r3, [r7, #6]
+ 80009e4:	e00b      	b.n	80009fe <main+0xc2>
 	else
 		{ Seven_Seg_Count = (Seven_Seg_Count==0)?9999:Seven_Seg_Count-1; }
- 80009ba:	f9b7 3006 	ldrsh.w	r3, [r7, #6]
- 80009be:	2b00      	cmp	r3, #0
- 80009c0:	d004      	beq.n	80009cc <main+0xbc>
- 80009c2:	88fb      	ldrh	r3, [r7, #6]
- 80009c4:	3b01      	subs	r3, #1
- 80009c6:	b29b      	uxth	r3, r3
- 80009c8:	b21b      	sxth	r3, r3
- 80009ca:	e001      	b.n	80009d0 <main+0xc0>
- 80009cc:	f242 730f 	movw	r3, #9999	@ 0x270f
- 80009d0:	80fb      	strh	r3, [r7, #6]
+ 80009e6:	f9b7 3006 	ldrsh.w	r3, [r7, #6]
+ 80009ea:	2b00      	cmp	r3, #0
+ 80009ec:	d004      	beq.n	80009f8 <main+0xbc>
+ 80009ee:	88fb      	ldrh	r3, [r7, #6]
+ 80009f0:	3b01      	subs	r3, #1
+ 80009f2:	b29b      	uxth	r3, r3
+ 80009f4:	b21b      	sxth	r3, r3
+ 80009f6:	e001      	b.n	80009fc <main+0xc0>
+ 80009f8:	f242 730f 	movw	r3, #9999	@ 0x270f
+ 80009fc:	80fb      	strh	r3, [r7, #6]
 
 
 
 	// Start ADC Conversion of the 10K potentiometer
 	HAL_ADC_Start(&hadc2);
- 80009d2:	481f      	ldr	r0, [pc, #124]	@ (8000a50 <main+0x140>)
- 80009d4:	f001 f960 	bl	8001c98 <HAL_ADC_Start>
+ 80009fe:	481f      	ldr	r0, [pc, #124]	@ (8000a7c <main+0x140>)
+ 8000a00:	f001 f94a 	bl	8001c98 <HAL_ADC_Start>
 	// The conversion should be less than a millisec
 	// so it'll be done while we're waiting for the next number to show
 	HAL_Delay(Increment_Delay);  // this is how long before the counter on the 7-Seg display
- 80009d8:	4b1e      	ldr	r3, [pc, #120]	@ (8000a54 <main+0x144>)
- 80009da:	881b      	ldrh	r3, [r3, #0]
- 80009dc:	4618      	mov	r0, r3
- 80009de:	f000 fe03 	bl	80015e8 <HAL_Delay>
+ 8000a04:	4b1e      	ldr	r3, [pc, #120]	@ (8000a80 <main+0x144>)
+ 8000a06:	881b      	ldrh	r3, [r3, #0]
+ 8000a08:	4618      	mov	r0, r3
+ 8000a0a:	f000 fded 	bl	80015e8 <HAL_Delay>
 
 
    // Poll ADC2 Perihperal & TimeOut = 1mSec
 	HAL_ADC_PollForConversion(&hadc2, 1);
- 80009e2:	2101      	movs	r1, #1
- 80009e4:	481a      	ldr	r0, [pc, #104]	@ (8000a50 <main+0x140>)
- 80009e6:	f001 fa11 	bl	8001e0c <HAL_ADC_PollForConversion>
+ 8000a0e:	2101      	movs	r1, #1
+ 8000a10:	481a      	ldr	r0, [pc, #104]	@ (8000a7c <main+0x140>)
+ 8000a12:	f001 f9fb 	bl	8001e0c <HAL_ADC_PollForConversion>
    // Read The ADC Conversion Result & Map It To PWM DutyCycle
 	ADC_Result = HAL_ADC_GetValue(&hadc2);
- 80009ea:	4819      	ldr	r0, [pc, #100]	@ (8000a50 <main+0x140>)
- 80009ec:	f001 fae6 	bl	8001fbc <HAL_ADC_GetValue>
- 80009f0:	4603      	mov	r3, r0
- 80009f2:	b29a      	uxth	r2, r3
- 80009f4:	4b18      	ldr	r3, [pc, #96]	@ (8000a58 <main+0x148>)
- 80009f6:	801a      	strh	r2, [r3, #0]
+ 8000a16:	4819      	ldr	r0, [pc, #100]	@ (8000a7c <main+0x140>)
+ 8000a18:	f001 fad0 	bl	8001fbc <HAL_ADC_GetValue>
+ 8000a1c:	4603      	mov	r3, r0
+ 8000a1e:	b29a      	uxth	r2, r3
+ 8000a20:	4b18      	ldr	r3, [pc, #96]	@ (8000a84 <main+0x148>)
+ 8000a22:	801a      	strh	r2, [r3, #0]
 	// Want the delay to be between 1/100-sec and 1-sec
 	// Math:    1 / 100 =  / 4095
 	Increment_Delay = (uint16_t)(ADC_Result + 1) * 1000 / 4095;
- 80009f8:	4b17      	ldr	r3, [pc, #92]	@ (8000a58 <main+0x148>)
- 80009fa:	881b      	ldrh	r3, [r3, #0]
- 80009fc:	3301      	adds	r3, #1
- 80009fe:	b29b      	uxth	r3, r3
- 8000a00:	461a      	mov	r2, r3
- 8000a02:	f44f 737a 	mov.w	r3, #1000	@ 0x3e8
- 8000a06:	fb02 f303 	mul.w	r3, r2, r3
- 8000a0a:	4a14      	ldr	r2, [pc, #80]	@ (8000a5c <main+0x14c>)
- 8000a0c:	fb82 1203 	smull	r1, r2, r2, r3
- 8000a10:	441a      	add	r2, r3
- 8000a12:	12d2      	asrs	r2, r2, #11
- 8000a14:	17db      	asrs	r3, r3, #31
- 8000a16:	1ad3      	subs	r3, r2, r3
- 8000a18:	b29a      	uxth	r2, r3
- 8000a1a:	4b0e      	ldr	r3, [pc, #56]	@ (8000a54 <main+0x144>)
- 8000a1c:	801a      	strh	r2, [r3, #0]
+ 8000a24:	4b17      	ldr	r3, [pc, #92]	@ (8000a84 <main+0x148>)
+ 8000a26:	881b      	ldrh	r3, [r3, #0]
+ 8000a28:	3301      	adds	r3, #1
+ 8000a2a:	b29b      	uxth	r3, r3
+ 8000a2c:	461a      	mov	r2, r3
+ 8000a2e:	f44f 737a 	mov.w	r3, #1000	@ 0x3e8
+ 8000a32:	fb02 f303 	mul.w	r3, r2, r3
+ 8000a36:	4a14      	ldr	r2, [pc, #80]	@ (8000a88 <main+0x14c>)
+ 8000a38:	fb82 1203 	smull	r1, r2, r2, r3
+ 8000a3c:	441a      	add	r2, r3
+ 8000a3e:	12d2      	asrs	r2, r2, #11
+ 8000a40:	17db      	asrs	r3, r3, #31
+ 8000a42:	1ad3      	subs	r3, r2, r3
+ 8000a44:	b29a      	uxth	r2, r3
+ 8000a46:	4b0e      	ldr	r3, [pc, #56]	@ (8000a80 <main+0x144>)
+ 8000a48:	801a      	strh	r2, [r3, #0]
 	// Now show the value in the serial port
 	// only 12 bits, and right-aligned.
 	// printf("Pot value:  %u\r", (unsigned int) (ADC_Result & 0xfff));
 	// HAL_Delay(1);
 	if (TimeToPrint) {
- 8000a1e:	4b10      	ldr	r3, [pc, #64]	@ (8000a60 <main+0x150>)
- 8000a20:	781b      	ldrb	r3, [r3, #0]
- 8000a22:	2b00      	cmp	r3, #0
- 8000a24:	d0b2      	beq.n	800098c <main+0x7c>
+ 8000a4a:	4b10      	ldr	r3, [pc, #64]	@ (8000a8c <main+0x150>)
+ 8000a4c:	781b      	ldrb	r3, [r3, #0]
+ 8000a4e:	2b00      	cmp	r3, #0
+ 8000a50:	d0b2      	beq.n	80009b8 <main+0x7c>
 		OneSecond_Show_Potentiometer__ISRFunc();
- 8000a26:	f000 f81d 	bl	8000a64 <OneSecond_Show_Potentiometer__ISRFunc>
+ 8000a52:	f7ff ff5d 	bl	8000910 <OneSecond_Show_Potentiometer__ISRFunc>
 		TimeToPrint=0;
- 8000a2a:	4b0d      	ldr	r3, [pc, #52]	@ (8000a60 <main+0x150>)
- 8000a2c:	2200      	movs	r2, #0
- 8000a2e:	701a      	strb	r2, [r3, #0]
+ 8000a56:	4b0d      	ldr	r3, [pc, #52]	@ (8000a8c <main+0x150>)
+ 8000a58:	2200      	movs	r2, #0
+ 8000a5a:	701a      	strb	r2, [r3, #0]
 	MultiFunctionShield_Display( Seven_Seg_Count);
- 8000a30:	e7ac      	b.n	800098c <main+0x7c>
- 8000a32:	bf00      	nop
- 8000a34:	200000f0 	.word	0x200000f0
- 8000a38:	2000013c 	.word	0x2000013c
- 8000a3c:	20000188 	.word	0x20000188
- 8000a40:	48000400 	.word	0x48000400
- 8000a44:	08006804 	.word	0x08006804
- 8000a48:	08006808 	.word	0x08006808
- 8000a4c:	20000262 	.word	0x20000262
- 8000a50:	2000008c 	.word	0x2000008c
- 8000a54:	20000260 	.word	0x20000260
- 8000a58:	2000025c 	.word	0x2000025c
- 8000a5c:	80080081 	.word	0x80080081
- 8000a60:	2000025e 	.word	0x2000025e
-
-08000a64 <OneSecond_Show_Potentiometer__ISRFunc>:
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
-void OneSecond_Show_Potentiometer__ISRFunc(void)
-	{
- 8000a64:	b580      	push	{r7, lr}
- 8000a66:	af00      	add	r7, sp, #0
-	// printf("Got to the show Pot ISR");
-	// HAL_Delay(1);
-	printf("Current Tick:  %lu    :   Raw Pot Value: %u   Delay between number update: %d\n\r",uwTick,ADC_Result,Increment_Delay);
- 8000a68:	4b05      	ldr	r3, [pc, #20]	@ (8000a80 <OneSecond_Show_Potentiometer__ISRFunc+0x1c>)
- 8000a6a:	6819      	ldr	r1, [r3, #0]
- 8000a6c:	4b05      	ldr	r3, [pc, #20]	@ (8000a84 <OneSecond_Show_Potentiometer__ISRFunc+0x20>)
- 8000a6e:	881b      	ldrh	r3, [r3, #0]
- 8000a70:	461a      	mov	r2, r3
- 8000a72:	4b05      	ldr	r3, [pc, #20]	@ (8000a88 <OneSecond_Show_Potentiometer__ISRFunc+0x24>)
- 8000a74:	881b      	ldrh	r3, [r3, #0]
- 8000a76:	4805      	ldr	r0, [pc, #20]	@ (8000a8c <OneSecond_Show_Potentiometer__ISRFunc+0x28>)
- 8000a78:	f005 f84a 	bl	8005b10 <iprintf>
-	// HAL_Delay(1);
-	}
- 8000a7c:	bf00      	nop
- 8000a7e:	bd80      	pop	{r7, pc}
- 8000a80:	20000268 	.word	0x20000268
+ 8000a5c:	e7ac      	b.n	80009b8 <main+0x7c>
+ 8000a5e:	bf00      	nop
+ 8000a60:	200000f0 	.word	0x200000f0
+ 8000a64:	2000013c 	.word	0x2000013c
+ 8000a68:	20000188 	.word	0x20000188
+ 8000a6c:	48000400 	.word	0x48000400
+ 8000a70:	08006854 	.word	0x08006854
+ 8000a74:	08006858 	.word	0x08006858
+ 8000a78:	20000262 	.word	0x20000262
+ 8000a7c:	2000008c 	.word	0x2000008c
+ 8000a80:	20000260 	.word	0x20000260
  8000a84:	2000025c 	.word	0x2000025c
- 8000a88:	20000260 	.word	0x20000260
- 8000a8c:	08006830 	.word	0x08006830
+ 8000a88:	80080081 	.word	0x80080081
+ 8000a8c:	2000025e 	.word	0x2000025e
 
 08000a90 <SystemClock_Config>:
 
@@ -3195,7 +3195,7 @@ LoopFillZerobss:
  80014ca:	f004 fbcb 	bl	8005c64 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
- 80014ce:	f7ff fa1f 	bl	8000910 <main>
+ 80014ce:	f7ff fa35 	bl	800093c <main>
 
 080014d2 <LoopForever>:
 
