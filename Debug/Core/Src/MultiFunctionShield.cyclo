@@ -1,0 +1,5 @@
+../Core/Src/MultiFunctionShield.c:10:6:shiftOut	3
+../Core/Src/MultiFunctionShield.c:42:6:MultiFunctionShield_Display	10
+../Core/Src/MultiFunctionShield.c:93:6:MultiFunctionShield_Clear	1
+../Core/Src/MultiFunctionShield.c:101:6:MultiFunctionShield_WriteNumberToSegment	1
+../Core/Src/MultiFunctionShield.c:111:6:MultiFunctionShield__ISRFunc	5

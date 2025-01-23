@@ -1,0 +1,5 @@
+../Core/Src/MultiFunctionShield.c:10:6:shiftOut	32	static
+../Core/Src/MultiFunctionShield.c:42:6:MultiFunctionShield_Display	16	static
+../Core/Src/MultiFunctionShield.c:93:6:MultiFunctionShield_Clear	4	static
+../Core/Src/MultiFunctionShield.c:101:6:MultiFunctionShield_WriteNumberToSegment	24	static
+../Core/Src/MultiFunctionShield.c:111:6:MultiFunctionShield__ISRFunc	8	static

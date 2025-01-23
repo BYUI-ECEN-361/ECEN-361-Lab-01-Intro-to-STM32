@@ -72,16 +72,27 @@ void MultiFunctionShield__ISRFunc(void);
 void MultiFunctionShield_Clear(void);
 void OneSecond_Show_Potentiometer__ISRFunc(void);
 
-	uint16_t ADC_Result = 0;
-	uint8_t TimeToPrint = 0;
-	uint16_t Increment_Delay = 0;
-	enum Count_Direction {UP,DOWN};
-	enum Count_Direction Seven_Seg_Count_Dir = UP;
+uint16_t ADC_Result = 0;
+uint8_t TimeToPrint = 0;
+uint16_t Increment_Delay = 0;
+enum Count_Direction {UP,DOWN};
+enum Count_Direction Seven_Seg_Count_Dir = UP;
+
+
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
+
 /* USER CODE BEGIN 0 */
+
+void OneSecond_Show_Potentiometer__ISRFunc(void)
+	{
+	// printf("Got to the show Pot ISR");
+	// HAL_Delay(1);
+	printf("Current Tick:  %lu    :   Raw Pot Value: %u   Delay between number update: %d\n\r",uwTick,ADC_Result,Increment_Delay);
+	// HAL_Delay(1);
+	}
 
 /* USER CODE END 0 */
 
@@ -191,13 +202,6 @@ int main(void)
   * @brief System Clock Configuration
   * @retval None
   */
-void OneSecond_Show_Potentiometer__ISRFunc(void)
-	{
-	// printf("Got to the show Pot ISR");
-	// HAL_Delay(1);
-	printf("Current Tick:  %lu    :   Raw Pot Value: %u   Delay between number update: %d\n\r",uwTick,ADC_Result,Increment_Delay);
-	// HAL_Delay(1);
-	}
 
 
 
