@@ -97,7 +97,7 @@ Steps:
   
    <mark>[*answer here*]</mark>
 
-## Extra-Credit Opportunities (2pts for any of the following)
+## To Get an 'A', complete one of these (Extra Credit for completing more than one!): (2pts for any of the following)
 
 * In addition to the changing digits, there is a serial output terminal stream that is reporting status abut every second or so.  Connect a terminal emulator to this stream (Windows: 'PuTTY' or 'Tera Term', Mac: 'screen') and paste a line from its output.
   
